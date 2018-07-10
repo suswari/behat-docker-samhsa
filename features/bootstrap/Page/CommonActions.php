@@ -77,11 +77,15 @@ class CommonActions extends Page {
     public function setPageTimeOut(){
 //        var_export($this->getSession()->getDriver());
         $this->getSession()->getDriver()->setTimeouts(['page load'=>5000]);
-        var_export('in here');
+//        var_export('in here');
     }
 
     public function getFieldText($locator){
-        $text = $this->find('xpath',$locator)->getText();
+        try{
+            $text = $this->find('xpath',$locator)->getText();
+        }
+        catch (\WebDriver\Exception\Timeout $e){
+        }
         return $text;
     }
 

@@ -24,8 +24,8 @@ class SAMSHAHomePage extends CommonActions {
     //##############################################################################
 
     public $programsAndCampaingsLink = ".//a[text()='Programs & Campaigns']";
-    public $SAMHSAHeaderLogoPresent = ".//img[@id='top-logo']";
-
+    public $SAMHSAHeaderLogo = ".//img[@id='top-logo']";
+    public $SAMHSAHeader = ".//*[@class='l-region l-region--header']";
 
     //##############################################################################
     //#######################      Page methods             ########################

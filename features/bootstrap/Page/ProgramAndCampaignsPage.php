@@ -27,6 +27,16 @@ class ProgramAndCampaignsPage extends CommonActions {
     public function getProgramsAndCampaignsLinkXpath ($linkName){
         return './/a[text()="'.$linkName.'"]';
     }
+    public $SearchByKeywordTextField = './/*[@id="edit-field-summary-value"]';
+    public $SearchByTypeDropdown = './/*[@id="edit-field-pc-type-tid"]';
+    public $SearchByTopicDropdown = './/*[@id="edit-field-pc-topic-tid"]';
+    public function ProgramIcon($name){
+        return './/a[@href="/'.$name.'"]/img[@typeof="foaf:Image"]';
+    }
+    public function ProgramSummaryBlock($name){
+        return './/a[text()="'.$name.'"]/../../*[@class="pc-field-summary"]';
+    }
+    public $SearchFindButton = ".//*[@id='edit-submit-programs-campaigns']";
 
     //##############################################################################
     //#######################      Page methods             ########################

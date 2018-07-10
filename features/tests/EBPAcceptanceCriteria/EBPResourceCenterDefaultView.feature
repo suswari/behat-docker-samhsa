@@ -38,13 +38,13 @@ Feature: Evidence-Based Practices Resource Center Display content
   Scenario: View the 'Filter Resources' section
     Given The user is on the "EBP Resource Center page"
     Then From the EBP filter section the user sees the following filters and default selection
-    |filter          |default selection     |
-    |Topic Area      |   - All -              |
-    |Populations     |   - All -              |
-    |Target Audience |   - All -              |
-    |Resource Type   |   - All -              |
-    |Sort by         |      Title A->Z        |
-    |Items per page  |     15                 |
+      |filter          |default selection     |
+      |Topic Area      |   - All -              |
+      |Populations     |   - All -              |
+      |Target Audience |   - All -              |
+      |Resource Type   |   - All -              |
+      |Sort by         |      Title A->Z        |
+      |Items per page  |     15                 |
     And The user sees the “Apply” button for the EBP filters
 
   Scenario: View the resource descriptions and tags for each resource listing
@@ -68,14 +68,14 @@ Feature: Evidence-Based Practices Resource Center Display content
   Scenario: View the 'Technical Assistance' section
     Given The user is on the "EBP Resource Center page"
     When In the Technical Assistance section on the right rail of the EBP page there are following weblinks
-    |links|
-    |Providers' Clinical Support System for Medication Assisted Treatment (PCSS-MAT)|
-    |Addiction Technology Transfer Center (ATTC) Network                            |
-    |Center for the Application of Prevention Technologies (CAPT)                   |
-    |Bringing Recovery Supports to Scale Technical Assistance Center Strategy (BRSS TACS)|
-    |SAMHSA-HRSA Center for Integrated Health Solutions (CIHS)                           |
-    |National Center on Substance Abuse and Child Welfare (NCSACW)                      |
-    |National Training and Technical Assistance Center for Child, Youth & Family Mental Health (NTTAC)|
+      |links|
+      |Providers' Clinical Support System for Medication Assisted Treatment (PCSS-MAT)|
+      |Addiction Technology Transfer Center (ATTC) Network                            |
+      |Center for the Application of Prevention Technologies (CAPT)                   |
+      |Bringing Recovery Supports to Scale Technical Assistance Center Strategy (BRSS TACS)|
+      |SAMHSA-HRSA Center for Integrated Health Solutions (CIHS)                           |
+      |National Center on Substance Abuse and Child Welfare (NCSACW)                      |
+      |National Training and Technical Assistance Center for Child, Youth & Family Mental Health (NTTAC)|
     And The user sees "View more technical assistance resources on the SAMHSA Knowledge Network" in the Technical Assistance section
 
 
@@ -98,11 +98,11 @@ Feature: Evidence-Based Practices Resource Center Display content
   Scenario: View the 'blocks' section
     Given The user is on the "EBP Resource Center page"
     Then The user sees the following helper blocks
-    |blocks|
-    |SAMHSA Behavioral Health Treatment Locator|
-    |National Suicide Prevention Lifeline|
-    |National Helpline         |
-    |Disaster Distress Helpline          |
+      |blocks|
+      |SAMHSA Behavioral Health Treatment Locator|
+      |National Suicide Prevention Lifeline|
+      |National Helpline         |
+      |Disaster Distress Helpline          |
 
 
   Scenario: View default pagination on the EBP resource center page
@@ -130,11 +130,11 @@ Feature: Evidence-Based Practices Resource Center Display content
     And The user sees the EBP about page title as "About the Evidence-Based Practices Resource Center"
     And The user sees the EBP about page description text "SAMHSA is committed to improving prevention, treatment, and recovery support services for mental and substance use disorders."
     And The user sees the Sidebar navigation with the following links
-    |link|
-    |EBP Resource Center|
-    |About              |
+      |link|
+      |EBP Resource Center|
+      |About              |
     And The user sees the EBP about page text
-   And The user sees the link "Return to the Evidence-Based Practices Resource Center search page"
+    And The user sees the link "Return to the Evidence-Based Practices Resource Center search page"
 
 
   Scenario: About Page Links
