@@ -6,7 +6,7 @@
  * Time: 3:11 PM
  */
 
-namespace Page;
+namespace Pages;
 use Behat\Mink\Session;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Factory;
 

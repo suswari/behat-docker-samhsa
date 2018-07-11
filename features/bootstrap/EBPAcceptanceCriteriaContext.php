@@ -7,11 +7,11 @@
  */
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Page\EBPResourceCentrePage;
-use Page\EBPResourceCenterAboutPage;
-use Page\ProgramAndCampaignsPage;
-use Page\SAMSHAHomePage;
-use Page\CommonPageElements;
+use Pages\EBPResourceCentrePage;
+use Pages\EBPResourceCenterAboutPage;
+use Pages\ProgramAndCampaignsPage;
+use Pages\SAMSHAHomePage;
+use Pages\CommonPageElements;
 
 //require_once 'PHPUnit/Framework/Assert/Functions.php';
 

@@ -8,7 +8,7 @@
  */
 
 
-namespace Page;
+namespace Pages;
 
 use Behat\MinkExtension\Context\RawMinkContext;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;

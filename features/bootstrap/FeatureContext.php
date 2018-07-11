@@ -5,8 +5,9 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\AfterStepScope;
-use Page\CommonPageElements;
-use Page\SAMSHAHomePage;
+use Pages\CommonPageElements;
+use Pages\SAMSHAHomePage;
+use Pages\ProgramAndCampaignsPage;
 
 /**
  * Defines application features from the specific context.
@@ -154,10 +155,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     public function ExpectsToBeOnPage($pagehint)
     {
         $currentUrl=$this->CommonPageElements->getCurrentUrl();
-        var_export($currentUrl);
-//        $baseUrl=$this->CommonPageElements->getBaseUrl($pagehint);
-//        var_export($baseUrl);
-
         if($pagehint == 'EBP about page'){
             $this->assertStringEndsWith('ebp-resource-center/about',$currentUrl,'');
         }elseif ($pagehint=='EBP Resource Center page') {

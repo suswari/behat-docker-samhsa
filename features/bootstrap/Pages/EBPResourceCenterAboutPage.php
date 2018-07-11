@@ -7,7 +7,7 @@
  */
 
 
-namespace Page;
+namespace Pages;
 
 
 use Behat\Mink\Session;

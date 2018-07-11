@@ -2,10 +2,10 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Page\CommonPageElements;
-use Page\SAMSHAHomePage;
-use Page\ProgramAndCampaignsPage;
-use Page\ISMICCPage;
+use Pages\CommonPageElements;
+use Pages\SAMSHAHomePage;
+use Pages\ProgramAndCampaignsPage;
+use Pages\ISMICCPage;
 
 /**
  * Defines application features from the specific context.
