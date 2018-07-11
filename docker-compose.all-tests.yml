@@ -18,5 +18,6 @@ services:
       - ./project-yamls/:/srv/project-yamls
       - ./features:/srv/features # Mount features folder as /srv/features.
       - ./artifacts:/srv/artifacts # Mount artifacts folder as /srv/artifacts.
+      - ./reports:/srv/reports # Mount artifacts folder as /srv/artifacts.
       # - {path/to/drupal-project}:/drupal # Mount drupal root directory as /drupal (optional).
       - ./docker/composer.json:/srv/composer.json # Mount composer.json as /srv/composer.json for composer update (optional).

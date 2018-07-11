@@ -10,7 +10,11 @@ default:
         - Drupal\DrupalExtension\Context\MarkupContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
         - EBPAcceptanceCriteriaContext: ~
- 	    - ISMICCAcceptanceCriteriaContext: ~
+        - ISMICCAcceptanceCriteriaContext
+  formatters:
+    emusehtml:
+      output_path: %paths.base%/reports/
+    pretty:
   extensions:
     Behat\MinkExtension:
       default_session: selenium2
@@ -49,17 +53,10 @@ default:
       outputDir: %paths.base%/artifacts
 
     SensioLabs\Behat\PageObjectExtension: ~
-
     emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
-      name: html
       renderer: Twig,Behat2
       file_name: index
       print_args: true
       print_outp: true
       loop_break: true
 
-    Bex\Behat\ScreenshotExtension:
-          screenshot_taking_mode: failed_steps
-          image_drivers:
-            local:
-              screenshot_directory: /reports/screenshots

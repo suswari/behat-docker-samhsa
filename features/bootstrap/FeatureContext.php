@@ -7,7 +7,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Pages\CommonPageElements;
 use Pages\SAMSHAHomePage;
-use Pages\ProgramAndCampaignsPage;
+use Pages\CommonActions;
 
 /**
  * Defines application features from the specific context.
@@ -17,7 +17,7 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
     public $HomePage;
     public $CommonPageElements;
-    public $ProgramsAndCampaignsPage;
+    public $CommonActions;
 
     /**
      * Initializes context.
@@ -26,11 +26,11 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
      */
-    public function __construct(SAMSHAHomePage $HomePage,CommonPageElements $CommonPageElements,ProgramAndCampaignsPage $programsAndCampaignsPage)
+    public function __construct(SAMSHAHomePage $HomePage,CommonPageElements $CommonPageElements,CommonActions $commonActions)
     {
         $this->HomePage = $HomePage;
         $this->CommonPageElements = $CommonPageElements;
-        $this->ProgramsAndCampaignsPage =$programsAndCampaignsPage;
+        $this->CommonActions =$commonActions;
     }
 
 
@@ -55,33 +55,18 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
      */
     public function afterStep($scope)
     {
-        //if test has failed, and is not an api test, get screenshot
-        if(!$scope->getTestResult()->isPassed())
-        {
-            //create filename string
-
             $featureFolder = preg_replace('/\W/', '', $scope->getFeature()->getTitle());
 
             $scenarioName = $this->currentScenario->getTitle();
             $fileName = preg_replace('/\W/', '', $scenarioName) . '.png';
 
-            //create screenshots directory if it doesn't exist
-            if (!file_exists('reports/screenshots/' . $featureFolder)) {
-                mkdir('reports/screenshots/' . $featureFolder);
-            }
-//            $driver = $this->getSession()->getDriver();
-//            $driver = $this->getDgetDriver();
+        if (!file_exists('reports/screenshots/' . $featureFolder)) {
+            mkdir('reports/screenshots/' . $featureFolder, 0777, true);
+            fopen('reports/screenshots/' . $featureFolder.'/'.$fileName, "w");
 
-            //take screenshot and save as the previously defined filename
-//            $this->driver->takeScreenshot('results/html/assets/screenshots/' . $featureFolder . '/' . $fileName);
-            // For Selenium2 Driver you can use:
-//            try {
-//                $screenshot = $driver->getScreenshot();
-//            } catch (UnsupportedDriverActionException $e) {
-//            } catch (DriverException $e) {
-//            }
-//            file_put_contents('reports/tmp/test.png', base64_decode($screenshot));
         }
+             file_put_contents('reports/screenshots/'.$featureFolder.'/'.$fileName , $this->CommonActions->takeScreenShot());
+
     }
 
 

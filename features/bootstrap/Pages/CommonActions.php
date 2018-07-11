@@ -114,4 +114,12 @@ class CommonActions extends Page {
         catch (\WebDriver\Exception\Timeout $e){
         }
     }
+
+    public function takeScreenShot(){
+        try{
+           return $this->getDriver()->getScreenshot();
+        }
+        catch (\WebDriver\Exception\Timeout $e){
+        }
+    }
 }

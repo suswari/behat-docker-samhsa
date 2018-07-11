@@ -32,5 +32,5 @@ echo "Running tests."
 # docker-compose -f docker-compose.all-tests.yml exec behat bin/behat "$BEHAT_PARAMETERS"
 docker-compose -f docker-compose.all-tests.yml exec behat /srv/entrypoint.sh "$BEHAT_PARAMETERS"
 
-# Stop and remove containers.
-docker-compose -f docker-compose.all-tests.yml down
+## Stop and remove containers.
+#docker-compose -f docker-compose.all-tests.yml down
