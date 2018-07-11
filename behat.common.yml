@@ -10,7 +10,7 @@ default:
         - Drupal\DrupalExtension\Context\MarkupContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
         - EBPAcceptanceCriteriaContext: ~
- 	- ISMICCAcceptanceCriteria: ~
+ 	    - ISMICCAcceptanceCriteriaContext: ~
   extensions:
     Behat\MinkExtension:
       default_session: selenium2

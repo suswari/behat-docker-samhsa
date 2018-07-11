@@ -10,7 +10,7 @@ use Page\ISMICCPage;
 /**
  * Defines application features from the specific context.
  */
-class ISMICCAcceptanceCriteria extends PHPUnit_Framework_TestCase implements Context
+class ISMICCAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements Context
 {
     public $HomePage;
     public $ISMICCPage;

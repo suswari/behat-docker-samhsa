@@ -24,7 +24,7 @@ class ProgramAndCampaignsPage extends CommonActions {
     //#######################      Page elements Xpath      ########################
     //##############################################################################
 
-    public function getProgramsAndCampaignsLinkXpath ($linkName){
+    public function ProgramsAndCampaignsLinkXpath ($linkName){
         return './/a[text()="'.$linkName.'"]';
     }
     public $SearchByKeywordTextField = './/*[@id="edit-field-summary-value"]';
@@ -44,7 +44,7 @@ class ProgramAndCampaignsPage extends CommonActions {
 
 
     public function ClickProgram($programName){
-        $this->click($this->getProgramsAndCampaignsLinkXpath($programName));
+        $this->click($this->ProgramsAndCampaignsLinkXpath($programName));
     }
 
 }

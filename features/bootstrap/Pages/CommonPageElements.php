@@ -65,7 +65,13 @@ class CommonPageElements extends CommonActions {
 
 
     public $ApplyButton = './/input[@value="Apply"]';
+    public $HeaderConnectWithSAMHSAText = './/ul[@id=\'social_media\']/*[@id="header-social-label"]';
+    public function SocialMediaIcons($name){
+        return ".//ul[@id='social_media']/li[@id='".$name."']";
+    }
 
+    public $SAMHSASearchBox = ".//input[@class='samhsasearchbox']";
+    public $SAMHSASearchButton =".//input[@id='bodySearchAll']";
 
     //##############################################################################
     //#######################      Page methods             ########################

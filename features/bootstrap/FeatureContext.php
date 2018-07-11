@@ -290,7 +290,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
     /**
      * @Given /^The user clicks the link "(?P<linkname>(?:[^"]|\\")*)"$/
-    $/
      */
     public function ClicksOnALink($linkname)
     {
@@ -299,7 +298,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
     /**
      * @Given /^The "(?P<filterlabel>(?:[^"]|\\")*)" filter has the following options$/
-    $/
      */
     public function VerifyOptionsForDropdown($filterlabel,TableNode $table)
     {
@@ -316,7 +314,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
     /**
      * @Given /^The user selects the filter "(?P<filterlabel>(?:[^"]|\\")*)" as "(?P<optiontext>(?:[^"]|\\")*)"$/
-    $/
      */
     public function SelectFromDropdownByText($filterlabel,$optiontext)
     {
@@ -325,7 +322,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     }
     /**
      * @Given /^The user selects the following set of filter criteria for "(?P<filterlabel>(?:[^"]|\\")*)"$/
-    $/
      */
     public function SelectFromMutilpleDropdownsByText(TableNode $table){
         $hash = $table->getRows();
@@ -352,7 +348,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     }
     /**
      * @Given /^The users hits apply button$/
-    $/
      */
     public function ClickApplyButton()
     {
