@@ -340,4 +340,23 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
             $this->assertTrue(1==0, 'There results are not seen along with text "Sorry, we could not find any resources that matched your search"');
         }
     }
+
+    /**
+     * @Given /^The user sees the results are refreshed everytime for a new search$/
+     */
+    public function EBPResourceFilterResultsAreRefreshed()
+    {
+        $searchList = $this->EBPResourceCenterPage->GetAllResourcesLinkText();
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Topic Area'), '- All -');
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Populations'), '- All -');
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Target Audience'), '- All -');
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Resource Type'), '- All -');
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Sort by'), 'Title A->Z');
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Items per page'), "15");
+        $this->CommonPageElements->click($this->CommonPageElements->ApplyButton);
+        $this->CommonPageElements->waitForTime(3000);
+        $defaultList = $this->EBPResourceCenterPage->GetAllResourcesLinkText();
+            $this->assertNotEquals($searchList,$defaultList, 'The filter results are not refreshed"');
+
+    }
 }

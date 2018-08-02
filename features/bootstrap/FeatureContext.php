@@ -130,6 +130,8 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
             $this->HomePage->openPage('ismicc');
         }elseif ($pagehint=='Mind Breeze page') {
             $this->HomePage->openPage('search_results');
+        }elseif ($pagehint=='Grant awards by state page') {
+            $this->HomePage->openPage('grants-awards-by-state');
         }
 
     }
@@ -329,7 +331,7 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
         }
     }
     /**
-     * @Given /^The users hits apply button$/
+     * @Given /^(?:The users hits apply button|Perform a search)$/
      */
     public function ClickApplyButton()
     {
@@ -413,5 +415,36 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
         $this->assertEquals($visible, true, 'could not find SAMHSA search input field in the header');
 
     }
+
+    /**
+     * @Given /^The URI responds with 200 status code$/
+     */
+    public function CheckFor200()
+    {
+        $url =  $this->CommonActions->getCurrentUrl();
+        $handle = curl_init($url);
+        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+        $response = curl_exec($handle);
+        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        if($httpCode !== 200) {
+            $this->assertTrue(false,'the page '.$url.' returned with '.$httpCode);
+        }
+    }
+
+
+    /**
+     * @Given /^A user access the following URI:$/
+     */
+    public function AccessTheURI(TableNode $table)
+    {
+        $hash = $table->getHash();
+        foreach ($hash as $row) {
+                $this->HomePage->openPage($row['URI']);
+        }
+
+    }
+
+
+
 
 }

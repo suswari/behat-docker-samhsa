@@ -11,9 +11,11 @@ default:
         - Drupal\DrupalExtension\Context\MessageContext: ~
         - EBPAcceptanceCriteriaContext: ~
         - ISMICCAcceptanceCriteriaContext
+        - SAMHSAGrantAwardsByStateContext
+
   formatters:
     emusehtml:
-      output_path: %paths.base%/reports/
+      output_path: %paths.base%/reports
     pretty:
   extensions:
     Behat\MinkExtension:
@@ -48,9 +50,9 @@ default:
         main_nav: "#main-nav"
         content: "#main-content"
         footer: "#footer"
-    Vanare\BehatCucumberJsonFormatter\Extension:
-      filename: report.json
-      outputDir: %paths.base%/artifacts
+#    Vanare\BehatCucumberJsonFormatter\Extension:
+#      filename: report.json
+#      outputDir: %paths.base%/artifacts
 
     SensioLabs\Behat\PageObjectExtension: ~
     emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:

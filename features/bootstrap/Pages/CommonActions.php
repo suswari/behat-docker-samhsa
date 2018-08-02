@@ -39,8 +39,13 @@ class CommonActions extends Page {
 
     public function openPage($urlParameters){
         try{
-            $url = $this->getUrl([$urlParameters]);
-            $this->getDriver()->visit($url.$urlParameters);
+            if(strpos($urlParameters,'http') !== false){
+                $this->getDriver()->visit($urlParameters);
+            }else {
+                $url = $this->getUrl([$urlParameters]);
+                $this->getDriver()->visit($url.$urlParameters);
+            }
+
         }
         catch (\WebDriver\Exception\Timeout $e){
 //            var_export('in catch of method: openPage::Common Actions');
