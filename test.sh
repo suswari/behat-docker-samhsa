@@ -33,7 +33,7 @@ docker-compose -f docker-compose.all-tests.yml exec behat /srv/entrypoint.sh "$B
 echo "Generating reports."
 cp ./artifacts/report.json ./Jenkins/workspace/CucumberReport/
 JENKINS_BUILD_NUMBER=$(cat ./Jenkins/jobs/CucumberReport/nextBuildNumber)
-echo $JENKINS_BUILD_NUMBER
+#echo $JENKINS_BUILD_NUMBER
 CRUMB=$(curl -s 'http://admin:admin@localhost:8686/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
 curl -X POST -H "$CRUMB" -u admin:admin http://localhost:8686/job/CucumberReport/build
 bash -c 'sleep 8 && ls ' && ./Jenkins/jobs/CucumberReport/builds/
