@@ -6,9 +6,10 @@
 # Section to keep container working in detached mode.
 # cp /srv/project-yamls/*.yml /srv/
 if [ -z "$*" ]; then
+  chmod -R 777 /srv/artifacts
+  chmod -R 777 /srv/reports
   # Run Behat with parameters passed as command.
   bin/behat $*
   # Fix permissions to artifacts folder.
-  chmod -R 777 /srv/artifacts
 
 fi

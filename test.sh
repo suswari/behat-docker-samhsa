@@ -6,9 +6,9 @@
 # If else statement to set default parameters if no parameters was passed.
 
 if [ -z "$*" ]; then
-  BEHAT_PARAMETERS="--colors --format=pretty --out=std --config=behat.samhsa.yml features/tests"
+  BEHAT_PARAMETERS="--colors --format=pretty -f cucumber_json --out=std --config=behat.samhsa.yml features/tests"
 else
-  BEHAT_PARAMETERS="--colors --format=pretty --out=std --config=behat.samhsa.yml $*"
+  BEHAT_PARAMETERS="--colors --format=pretty -f cucumber_json --out=std --config=behat.samhsa.yml $*"
 fi
 
 # Start Behat and Selenium server containers
@@ -23,14 +23,22 @@ sleep 3
 echo "Copying your desired yaml to the root directory. It's a behat thing."
 echo '...'
 docker-compose -f docker-compose.all-tests.yml exec behat cp ./project-yamls/*.yml /srv
-# docker-compose -f docker-compose.all-tests.yml exec behat /drupal/smokefree composer install
 echo "Running composer update"
 docker-compose -f docker-compose.all-tests.yml exec behat composer update
 
 # Run tests inside Behat container.
 echo "Running tests."
-# docker-compose -f docker-compose.all-tests.yml exec behat bin/behat "$BEHAT_PARAMETERS"
 docker-compose -f docker-compose.all-tests.yml exec behat /srv/entrypoint.sh "$BEHAT_PARAMETERS"
 
-## Stop and remove containers.
-#docker-compose -f docker-compose.all-tests.yml down
+echo "Generating reports."
+cp ./artifacts/report.json ./Jenkins/workspace/CucumberReport/
+JENKINS_BUILD_NUMBER=$(cat ./Jenkins/jobs/CucumberReport/nextBuildNumber)
+echo $JENKINS_BUILD_NUMBER
+CRUMB=$(curl -s 'http://admin:admin@localhost:8686/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
+curl -X POST -H "$CRUMB" -u admin:admin http://localhost:8686/job/CucumberReport/build
+bash -c 'sleep 8 && ls ' && ./Jenkins/jobs/CucumberReport/builds/
+cp -r ./Jenkins/jobs/CucumberReport/builds/$JENKINS_BUILD_NUMBER/cucumber-html-reports ./reports
+SEND_TO_SLACK=true
+if [ "$SEND_TO_SLACK" = true ] ; then
+    sh send_to_slack.sh
+fi

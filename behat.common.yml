@@ -50,9 +50,10 @@ default:
         main_nav: "#main-nav"
         content: "#main-content"
         footer: "#footer"
-#    Vanare\BehatCucumberJsonFormatter\Extension:
-#      filename: report.json
-#      outputDir: %paths.base%/artifacts
+    Vanare\BehatCucumberJsonFormatter\Extension:
+      filename: report.json
+#      outputDir: %paths.base%/Jenkins/workspace/CucumberReport
+      outputDir: %paths.base%/artifacts
 
     SensioLabs\Behat\PageObjectExtension: ~
     emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:

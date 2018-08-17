@@ -19,5 +19,18 @@ services:
       - ./features:/srv/features # Mount features folder as /srv/features.
       - ./artifacts:/srv/artifacts # Mount artifacts folder as /srv/artifacts.
       - ./reports:/srv/reports # Mount artifacts folder as /srv/artifacts.
-      # - {path/to/drupal-project}:/drupal # Mount drupal root directory as /drupal (optional).
       - ./docker/composer.json:/srv/composer.json # Mount composer.json as /srv/composer.json for composer update (optional).
+  jenkins:
+    image: jenkinsci/blueocean
+    container_name: behat-report-jenkins
+    user: root
+    ports:
+      - 8686:8080
+      - 50001:50000
+    environment:
+      COMPOSER_UPDATE: 0 # 1 to update composer before running test. Composer.json must be mounted to behat container.
+    restart: on-failure:5
+    volumes:
+      - ./Jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+#      - ./cucumber-html-reports:/var/jenkins_home/jobs/runreport/builds/14/cucumber-html-reports/
