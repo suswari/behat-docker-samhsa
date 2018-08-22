@@ -41,8 +41,8 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
      */
     public function navigateFromProgramsAndCampaigns($linkName)
     {
-            $this->HomePage->ClickProgramsAndCampaignsLink();
-            $this->ProgramsCampaignsPage->ClickProgram($linkName);
+        $this->HomePage->ClickProgramsAndCampaignsLink();
+        $this->ProgramsCampaignsPage->ClickProgram($linkName);
     }
 
     /**
@@ -233,8 +233,8 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
      */
     public function MoreTechnicalAssistanceWeblinks($linkName)
     {
-            $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->MoreTechnicalAssistanceLink($linkName));
-            $this->assertEquals($visible, true, 'The technical assistance link ' . $linkName . ' is not visible');
+        $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->MoreTechnicalAssistanceLink($linkName));
+        $this->assertEquals($visible, true, 'The technical assistance link ' . $linkName . ' is not visible');
     }
 
     /**
@@ -256,10 +256,10 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
      */
     public function EBPAboutPageTitleVisible($title)
     {
-            $visible = $this->EBPAboutPage->isVisible($this->EBPAboutPage->EBPAboutTitle);
-            $text = $this->EBPAboutPage->getFieldText($this->EBPAboutPage->EBPAboutTitle);
-            $this->assertEquals($visible, true, '');
-            $this->assertEquals($text, $title, '');
+        $visible = $this->EBPAboutPage->isVisible($this->EBPAboutPage->EBPAboutTitle);
+        $text = $this->EBPAboutPage->getFieldText($this->EBPAboutPage->EBPAboutTitle);
+        $this->assertEquals($visible, true, '');
+        $this->assertEquals($text, $title, '');
     }
 
 
@@ -293,8 +293,8 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
      * @Given /^The user sees the EBP about page text$/
      */
     public function EBPAboutPageTextVisible(){
-            $visible = $this->EBPAboutPage->isVisible($this->EBPAboutPage->EBPDescriptionBlock);
-            $this->assertEquals($visible, true, 'EBP about page text block is not visible');
+        $visible = $this->EBPAboutPage->isVisible($this->EBPAboutPage->EBPDescriptionBlock);
+        $this->assertEquals($visible, true, 'EBP about page text block is not visible');
 
     }
     /**

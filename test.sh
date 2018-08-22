@@ -23,22 +23,22 @@ sleep 3
 echo "Copying your desired yaml to the root directory. It's a behat thing."
 echo '...'
 docker-compose -f docker-compose.all-tests.yml exec behat cp ./project-yamls/*.yml /srv
-echo "Running composer update"
-docker-compose -f docker-compose.all-tests.yml exec behat composer update
+#echo "Running composer update"
+#docker-compose -f docker-compose.all-tests.yml exec behat composer update
 
 # Run tests inside Behat container.
-echo "Running tests."
+echo "Running tests..."
 docker-compose -f docker-compose.all-tests.yml exec behat /srv/entrypoint.sh "$BEHAT_PARAMETERS"
 
-echo "Generating reports."
+echo "Generating reports..."
 cp ./artifacts/report.json ./Jenkins/workspace/CucumberReport/
 JENKINS_BUILD_NUMBER=$(cat ./Jenkins/jobs/CucumberReport/nextBuildNumber)
 #echo $JENKINS_BUILD_NUMBER
 CRUMB=$(curl -s 'http://admin:admin@localhost:8686/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
 curl -X POST -H "$CRUMB" -u admin:admin http://localhost:8686/job/CucumberReport/build
-bash -c 'sleep 8 && ls ' && ./Jenkins/jobs/CucumberReport/builds/
+sleep 8
 cp -r ./Jenkins/jobs/CucumberReport/builds/$JENKINS_BUILD_NUMBER/cucumber-html-reports ./reports
-SEND_TO_SLACK=true
+SEND_TO_SLACK=false
 if [ "$SEND_TO_SLACK" = true ] ; then
     sh send_to_slack.sh
 fi

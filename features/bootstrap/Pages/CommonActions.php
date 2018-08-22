@@ -127,4 +127,18 @@ class CommonActions extends Page {
         catch (\WebDriver\Exception\Timeout $e){
         }
     }
+    public function getWindows(){
+        try{
+            return $this->getDriver()->getWindowNames();
+        }
+        catch (\WebDriver\Exception\Timeout $e){
+        }
+    }
+    public function switchWindow($windowname){
+        try{
+            return $this->getDriver()->switchToWindow($windowname);
+        }
+        catch (\WebDriver\Exception\Timeout $e){
+        }
+    }
 }

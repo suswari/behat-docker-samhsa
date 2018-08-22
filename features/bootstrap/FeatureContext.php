@@ -69,7 +69,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
     }
 
-
     /**
      * @Then /^The user sees the SAMHSA header logo$/
      */
@@ -239,8 +238,8 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
      */
     public function PaginationLinksVisibility()
     {
-            $linksvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->PaginationLinks());
-            $this->assertEquals($linksvisible, true, '');
+        $linksvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->PaginationLinks());
+        $this->assertEquals($linksvisible, true, '');
     }
 
     /**
@@ -277,7 +276,7 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
      */
     public function ClicksOnALink($linkname)
     {
-       $this->CommonPageElements->click('.//a[text()="'.$linkname.'"]');
+        $this->CommonPageElements->click('.//a[text()="'.$linkname.'"]');
     }
 
     /**
@@ -290,7 +289,7 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
             try{
                 $optionvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->DropdownOptions($filterlabel).'[(normalize-space(text())="'.$row['Options'].'"]');
             }catch (Exception $exception){
-                 $optionvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->DropdownOptions($filterlabel).'[text()="'.$row['Options'].'"]');
+                $optionvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->DropdownOptions($filterlabel).'[text()="'.$row['Options'].'"]');
             }
             $this->assertEquals($optionvisible, true, 'could not find the following option:'.$row['Options']);
         }
@@ -312,6 +311,7 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
         $header = false;
         $headerrow = [];
         $datarow = [];
+
         foreach ($hash as $row) {
 
             if(!$header){
@@ -433,15 +433,11 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
 
     /**
-     * @Given /^A user access the following URI:$/
+     * @Given /^A user access the following "(?P<uri>(?:[^"]|\\")*)"$/
      */
-    public function AccessTheURI(TableNode $table)
+    public function AccessTheURI($uri)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-                $this->HomePage->openPage($row['URI']);
-        }
-
+                $this->HomePage->openPage($uri);
     }
 
 

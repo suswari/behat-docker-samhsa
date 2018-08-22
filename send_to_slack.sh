@@ -1,11 +1,12 @@
-#!/usr/bin/env bash
-
+#!/bin/sh
+OUT=$(./wsend ./reports/cucumber-html-reports/)
+echo $OUT
 curl -X POST -H 'Content-type: application/x-www-form-urlencoded' \
 --data '{
        "attachments": [
         {
             "title": "Behat Test Report",
-            "title_link": "http://localhost:63342/behat-docker-samhsa/reports/cucumber-html-reports/overview-features.html",
+            "title_link": "'"${OUT}"'",
         }
     ]
 

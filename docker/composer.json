@@ -15,7 +15,10 @@
     "vanare/behat-cucumber-json-formatter": "1.1.1",
     "sensiolabs/behat-page-object-extension": "^2.0",
     "emuse/behat-html-formatter": "^0.1.0",
-    "bex/behat-screenshot": "^1.2"
+    "twig/twig":"~1.5|~2.0",
+    "elkan/behatformatter": "v1.0.*"
+
+
   },
   "config": {
     "bin-dir": "bin/"

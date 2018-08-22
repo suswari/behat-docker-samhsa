@@ -10,11 +10,11 @@ Feature: Evidence-Based Practices Resource Center Display content
   Scenario:
     When The user expands on the "Topic Area" filter from the EBP filter section
     Then The "Topic Area" filter has the following options
-      |Options|
-      |- All -|
-      |Opioid-Specific Resources|
-      |Substance Use Prevention|
-      |Substance Use Treatment & Recovery|
+    |Options|
+    |- All -|
+    |Opioid-Specific Resources|
+    |Substance Use Prevention|
+    |Substance Use Treatment & Recovery|
 
   Scenario:
     When The user expands on the "Target Audience" filter from the EBP filter section
@@ -111,9 +111,9 @@ Feature: Evidence-Based Practices Resource Center Display content
       |<Topic Area>|<Populations>|<Target Audience>|<Resource Type>|
     And The users hits apply button
     Then The user sees either results for EBP resources or the text “Sorry, we could not find any resources that matched your search. Please try again.”
-    Examples:
-      |Topic Area               |Populations|Target Audience          |Resource Type  |
-      |Opioid-Specific Resources|Children   |Prevention Professionals |Screening Tool |
-      |Opioid-Specific Resources|Adults      |Prevention Professionals |    External Resource   |
-      |Opioid-Specific Resources|Youth       |Prevention Professionals | Fact Sheet       |
-      |                         |Children   |Prevention Professionals |  Fact Sheet     |
+  Examples:
+  |Topic Area               |Populations|Target Audience          |Resource Type  |
+  |Opioid-Specific Resources|Children   |Prevention Professionals |Screening Tool |
+  |Opioid-Specific Resources|Adults      |Prevention Professionals |    External Resource   |
+  |Opioid-Specific Resources|Youth       |Prevention Professionals | Fact Sheet       |
+  |                         |Children   |Prevention Professionals |  Fact Sheet     |

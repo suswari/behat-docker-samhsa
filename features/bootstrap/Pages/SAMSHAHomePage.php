@@ -26,7 +26,9 @@ class SAMSHAHomePage extends CommonActions {
     public $programsAndCampaingsLink = ".//a[text()='Programs & Campaigns']";
     public $SAMHSAHeaderLogo = ".//img[@id='top-logo']";
     public $SAMHSAHeader = ".//*[@class='l-region l-region--header']";
-
+    public $findFacilitySearchBar = ".//input[@id='sAddr']";
+    public $searchFacilityButton = ".//input[@id='search-treatment']";
+    public $facilityList = ".//*[@id='facility-list']/li";
     //##############################################################################
     //#######################      Page methods             ########################
     //##############################################################################

@@ -27,8 +27,6 @@ services:
     ports:
       - 8686:8080
       - 50001:50000
-    environment:
-      COMPOSER_UPDATE: 0 # 1 to update composer before running test. Composer.json must be mounted to behat container.
     restart: on-failure:5
     volumes:
       - ./Jenkins:/var/jenkins_home
