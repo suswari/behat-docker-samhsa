@@ -29,6 +29,24 @@ class SAMSHAHomePage extends CommonActions {
     public $findFacilitySearchBar = ".//input[@id='sAddr']";
     public $searchFacilityButton = ".//input[@id='search-treatment']";
     public $facilityList = ".//*[@id='facility-list']/li";
+    public function mainMenuOption($option){
+        return ".//ul[@class='menu']//a[text()='".$option."']";
+    }
+    public function treatmentMenuOptionsImages($option){
+        return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li/a/img[@alt='".$option."']";
+    }
+    public function treatmentMenuOptionsPhoneNumbers(){
+        return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li[2]";
+    }
+    public function grantMenuOptions($option){
+        return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li/*[text()='".$option."']";
+    }
+    public function programsAndCampaignsMenuOptions($option){
+        return ".//div[@qtip]//div[@class='mega-header']/a[text()='".$option."']";
+    }
+    public function aboutUsMenuOptions($option){
+        return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li/*[text()='".$option."']";
+    }
     //##############################################################################
     //#######################      Page methods             ########################
     //##############################################################################

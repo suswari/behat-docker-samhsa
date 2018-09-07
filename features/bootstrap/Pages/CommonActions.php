@@ -14,8 +14,8 @@ use Behat\MinkExtension\Context\RawMinkContext;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 use Behat\Mink\Exception\DriverException;
 
-class CommonActions extends Page {
 
+class CommonActions extends Page {
 
     public function click($locator){
         try{
@@ -156,4 +156,12 @@ class CommonActions extends Page {
         catch (\WebDriver\Exception\Timeout $e){
         }
     }
+    public function hoverOver($element){
+        try{
+            $this->getDriver()->mouseOver($element);
+        }
+        catch (\WebDriver\Exception\Timeout $e){
+        }
+    }
+
 }
