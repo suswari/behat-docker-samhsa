@@ -417,29 +417,14 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     public function CheckFor200()
     {
         $url =  $this->CommonActions->getCurrentUrl();
-        $ch = curl_init();
-        $options = array(
-            CURLOPT_URL            => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HEADER         => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_ENCODING       => "",
-            CURLOPT_AUTOREFERER    => true,
-            CURLOPT_CONNECTTIMEOUT => 120,
-            CURLOPT_TIMEOUT        => 120,
-            CURLOPT_MAXREDIRS      => 10,
-        );
-        curl_setopt ($ch, CURLOPT_CAINFO, dirname(__FILE__)."/cacert.pem");
-        curl_setopt_array( $ch, $options );
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        if ( $httpCode != 200 ){
-            $this->assertTrue(false,"Return code is {$httpCode} \n"
-                .curl_error($ch));
+        $handle = curl_init($url);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+        $response = curl_exec($handle);
+        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        if($httpCode !== 200) {
+            $this->assertTrue(false,'the page '.$url.' returned with '.$httpCode);
         }
-        curl_close($ch);
-
     }
 
 
