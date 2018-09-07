@@ -11,7 +11,7 @@ services:
     tty: true
     image: bergil/docker-behat
     environment:
-      COMPOSER_UPDATE: 0 # 1 to update composer before running test. Composer.json must be mounted to behat container.
+      COMPOSER_UPDATE: 1 # 1 to update composer before running test. Composer.json must be mounted to behat container.
     restart: on-failure:5
     volumes:
       - ./behat.common.yml:/srv/behat.common.yml # Mount behat.yml file as /srv/behat.yml.
@@ -19,6 +19,7 @@ services:
       - ./features:/srv/features # Mount features folder as /srv/features.
       - ./artifacts:/srv/artifacts # Mount artifacts folder as /srv/artifacts.
       - ./reports:/srv/reports # Mount artifacts folder as /srv/artifacts.
+      - ./vendor:/srv/vendor # Mount artifacts folder as /srv/artifacts.
       - ./docker/composer.json:/srv/composer.json # Mount composer.json as /srv/composer.json for composer update (optional).
   jenkins:
     image: jenkinsci/blueocean

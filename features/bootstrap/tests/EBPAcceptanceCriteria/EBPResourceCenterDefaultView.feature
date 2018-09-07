@@ -35,48 +35,43 @@ Feature: Evidence-Based Practices Resource Center Display content
     Then The user sees the breadcrumb link for "EBP Resource Center" as main node
     And The user sees the breadcrumb link for "Programs & Campaigns" as parent nodes
 
-  Scenario: View the 'Filter Resources' section
+  Scenario Outline: View the 'Filter Resources' section
     Given The user is on the "EBP Resource Center page"
-    Then From the EBP filter section the user sees the following filters and default selection
-    |filter          |default selection     |
-    |Topic Area      |   - All -              |
-    |Populations     |   - All -              |
-    |Target Audience |   - All -              |
-    |Resource Type   |   - All -              |
-    |Sort by         |      Title A->Z        |
-    |Items per page  |     15                 |
+    Then From the EBP filter section the user sees the filters "<filter>" and default selection "<selection>"
     And The user sees the “Apply” button for the EBP filters
+    Examples:
+      |filter          |selection     |
+      |Topic Area      |   - All -              |
+      |Populations     |   - All -              |
+      |Target Audience |   - All -              |
+      |Resource Type   |   - All -              |
+      |Sort by         |      Title A->Z        |
+      |Items per page  |     15                 |
 
   Scenario: View the resource descriptions and tags for each resource listing
     Given The user is on the "EBP Resource Center page"
     Then From the list of EBP resources the user sees the resource title come links
     And The resource records are sorted by title in ascending order by default
     And The total number of resources listed per page is 15
-    And The user sees the resource description
+    And The user sees the resource description "Topic Area" "Populations" "Target audience" "Resource Type"
     And The user always sees the following resource tags
-      |tag|
-      |Topic Area|
-      |Populations|
-      |Target audience|
-      |Resource Type|
-    And The user sees the following resource tags only when their value is not blank
-      |tag|
-      |Substances|
-      |Conditions|
+    And The user sees the "Substances" "Conditions" resource tags only when their value is not blank
 
 
-  Scenario: View the 'Technical Assistance' section
+  Scenario Outline: View the 'Technical Assistance' section
     Given The user is on the "EBP Resource Center page"
-    When In the Technical Assistance section on the right rail of the EBP page there are following weblinks
-    |links|
-    |Providers' Clinical Support System for Medication Assisted Treatment (PCSS-MAT)|
-    |Addiction Technology Transfer Center (ATTC) Network                            |
-    |Center for the Application of Prevention Technologies (CAPT)                   |
-    |Bringing Recovery Supports to Scale Technical Assistance Center Strategy (BRSS TACS)|
-    |SAMHSA-HRSA Center for Integrated Health Solutions (CIHS)                           |
-    |National Center on Substance Abuse and Child Welfare (NCSACW)                      |
-    |National Training and Technical Assistance Center for Child, Youth & Family Mental Health (NTTAC)|
+    When In the Technical Assistance section on the right rail of the EBP page there are weblinks "<links>"
     And The user sees "View more technical assistance resources on the SAMHSA Knowledge Network" in the Technical Assistance section
+    Examples:
+      |links|
+      |Providers' Clinical Support System for Medication Assisted Treatment (PCSS-MAT)|
+      |Addiction Technology Transfer Center (ATTC) Network                            |
+      |Center for the Application of Prevention Technologies (CAPT)                   |
+      |Bringing Recovery Supports to Scale Technical Assistance Center Strategy (BRSS TACS)|
+      |SAMHSA-HRSA Center for Integrated Health Solutions (CIHS)                           |
+      |National Center on Substance Abuse and Child Welfare (NCSACW)                      |
+      |National Training and Technical Assistance Center for Child, Youth & Family Mental Health (NTTAC)|
+
 
 
   Scenario Outline: View the 'Technical Assistance' section
@@ -95,9 +90,10 @@ Feature: Evidence-Based Practices Resource Center Display content
       |View more technical assistance resources on the SAMHSA Knowledge Network|https://knowledge.samhsa.gov/                                 |
 
 
-  Scenario: View the 'blocks' section
+  Scenario Outline: : View the 'blocks' section
     Given The user is on the "EBP Resource Center page"
-    Then The user sees the following helper blocks
+    Then The user sees the helper "<blocks>"
+    Examples:
     |blocks|
     |SAMHSA Behavioral Health Treatment Locator|
     |National Suicide Prevention Lifeline|
@@ -129,10 +125,8 @@ Feature: Evidence-Based Practices Resource Center Display content
     Then The user expects to be on "EBP about page"
     And The user sees the EBP about page title as "About the Evidence-Based Practices Resource Center"
     And The user sees the EBP about page description text "SAMHSA is committed to improving prevention, treatment, and recovery support services for mental and substance use disorders."
-    And The user sees the Sidebar navigation with the following links
-    |link|
-    |EBP Resource Center|
-    |About              |
+    And The user sees the Sidebar navigation link "EBP Resource Center"
+    And The user sees the Sidebar navigation link "About"
     And The user sees the EBP about page text
    And The user sees the link "Return to the Evidence-Based Practices Resource Center search page"
 

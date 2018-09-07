@@ -6,9 +6,7 @@ Feature: ISMICC acceptance criteria
 
   Scenario Outline: User finds the Interdepartmental Serious Mental Illness Coordinating Committee icon on the Programs & Campaigns page with a short summary & icon
     Given The user access "Programs & Campaigns page"
-    When The user searches for Programs & Campaigns page using the following terms
-    |Keyword|Type  | Topic |
-    |<Keyword>|<Type>  | <Topic>  |
+    When The user searches for Programs & Campaigns page using Keyword:"<Keyword>" Type:"<Type>" Topic:"<Topic>"
     Then The Programs & Campaigns page search results shows "ISMICC" icon
     Then The Programs & Campaigns page search results shows "Interdepartmental Serious Mental Illness Coordinating Committee" title & short summary block
 
@@ -26,24 +24,25 @@ Feature: ISMICC acceptance criteria
     And The user sees the breadcrumb link for "Interdepartmental Serious Mental Illness Coordinating Committee" as main node
     And The user sees the breadcrumb link for "Programs & Campaigns" as parent nodes
 
-  Scenario: View the search box and the social media icons on the header
+  Scenario Outline: View the search box and the social media icons on the header
     Given The user access "ISMICC page"
     Then The user sees the SAMHSA search box in the header
     And The user sees the search button for the SAMHSA search in the header
     And The user sees the text "CONNECT WITH SAMHSA:" as a label for socila media icons
-    And The user sees following social media icons in the header
-    |Social Media Icons|
-    | facebook         |
+    And The user sees Social Media Icon "<Icon>" in the header
+    Examples:
+    |Icon           |
+    |facebook         |
     |twitter           |
     |youtube           |
     |blog              |
 
-
-  Scenario: View the ISMICC heading and sub heading
+  Scenario Outline: View the ISMICC heading and sub heading
     Given The user access "ISMICC page"
     Then The user see the main title "Interdepartmental Serious Mental Illness Coordinating Committee"
-    And The user sees the following subheadings
-    |subheadings                                                                                                           |
+    And The user sees the subheading "<subheading>"
+    Examples:
+    |subheading                                                                                                           |
     |The Current Needs of Americans with Serious Mental Illnesses (SMI) and Serious Emotional Disturbances (SED)           |
     |Key Advances in Research on SMI and SED                                                                               |
     |About ISMICC                                                                                                          |
@@ -51,11 +50,11 @@ Feature: ISMICC acceptance criteria
     |Full Report and Executive Summary                                                                                     |
     |The Way Forward: Actions to Improve Access, Quality and Affordability of Care to Persons with SMI and SED             |
 
-
-  Scenario: The content sections on page link to specific pages of the PDF report
+  Scenario Outline: The content sections on page link to specific pages of the PDF report
     Given The user access "ISMICC page"
-    Then The user sees for the following subheadings on ISMICC page there are respective links
-      |subheadings                                                                                                  |links                                     |
+    Then The user sees for the subheading "<subheading>" on ISMICC page there is a link "<link>"
+    Examples:
+      |subheading                                                                                                  |link                                    |
       |The Current Needs of Americans with Serious Mental Illnesses (SMI) and Serious Emotional Disturbances (SED)  |Read more information about current needs |
       |Key Advances in Research on SMI and SED                                                                      |Learn about advances in SMI and SED       |
       |About ISMICC                                                                                                 |View committee and meeting schedule       |
@@ -93,10 +92,10 @@ Feature: ISMICC acceptance criteria
     When The user clicks on the ISMICC 2017 Report cover image
     Then The link opens in the same tab with the "sites/default/files/programs_campaigns/ismicc_2017_report_to_congress.pdf"
 
-
-  Scenario: The external links 'ISMICC News and Blogs', 'Behavioral Health Treatment Locator', 'National Helpline' and 'National Suicide Prevention Helpline' on lg/xl view
+  Scenario Outline: The external links 'ISMICC News and Blogs', 'Behavioral Health Treatment Locator', 'National Helpline' and 'National Suicide Prevention Helpline' on lg/xl view
     Given The user access "ISMICC page"
-    Then The user sees the following helper blocks
+    Then The user sees the helper "<blocks>"
+    Examples:
       |blocks|
       |SAMHSA Behavioral Health Treatment Locator|
       |National Suicide Prevention Lifeline|

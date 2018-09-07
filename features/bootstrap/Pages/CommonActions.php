@@ -63,6 +63,7 @@ class CommonActions extends Page {
     }
 
     public function getCurrentUrl(){
+        $url = '';
         try{
             $url = $this->getDriver()->getCurrentUrl();
         }
@@ -137,6 +138,20 @@ class CommonActions extends Page {
     public function switchWindow($windowname){
         try{
             return $this->getDriver()->switchToWindow($windowname);
+        }
+        catch (\WebDriver\Exception\Timeout $e){
+        }
+    }
+    public function switchIFrame($framename=null){
+        try{
+             $this->getDriver()->switchToIFrame($framename);
+        }
+        catch (\WebDriver\Exception\Timeout $e){
+        }
+    }
+    public function executescript($script){
+        try{
+            $this->getDriver()->executeScript($script);
         }
         catch (\WebDriver\Exception\Timeout $e){
         }

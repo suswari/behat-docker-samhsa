@@ -5,7 +5,7 @@ Feature: SAMHSA smoke test scenarios
   I wanted to execute the following scenarios
 
 Scenario Outline:
-  Given A user access the following "<URI>"
+  Given A user access the URI "<URI>"
   Then The URI responds with 200 status code
   Examples:
   |URI|

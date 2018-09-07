@@ -2,10 +2,9 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Pages\CommonPageElements;
+use Pages\AboutUsPage;
 use Pages\SAMSHAHomePage;
-use Pages\ProgramAndCampaignsPage;
-use Pages\GrantAwardsByStatePage;
+
 /**
  * Created by PhpStorm.
  * User: sadla
@@ -16,13 +15,12 @@ use Pages\GrantAwardsByStatePage;
 class SAMHSAHomeContext extends PHPUnit_Framework_TestCase implements \Behat\Behat\Context\Context
 {
     public $HomePage;
-    public $GrantAwardsByStatePage;
-    public $CommonPageElements;
-    public $ProgramsAndCampaignsPage;
+    public $AboutUsPage;
 
-    public function __construct(SAMSHAHomePage $HomePage)
+    public function __construct(SAMSHAHomePage $HomePage,AboutUsPage $aboutUsPage)
     {
         $this->HomePage = $HomePage;
+        $this->AboutUsPage = $aboutUsPage;
     }
 
     /**
@@ -56,6 +54,18 @@ class SAMHSAHomeContext extends PHPUnit_Framework_TestCase implements \Behat\Beh
         }else if($seen == 'true'){
             $this->assertTrue($listVisible);
         }
+    }
+
+    /**
+     * @Given /^The user sees there is a map frame pointing to SAMHSA address$/
+     */
+    public function IsMapQuestVisible()
+    {
+        $this->AboutUsPage->executeScript("document.getElementsByTagName('iframe')[1].setAttribute('id','pinFrame');");
+        $this->AboutUsPage->switchIFrame('pinFrame');
+        $framevisible = $this->AboutUsPage->isVisible($this->AboutUsPage->mapQuestWindow);
+        $this->assertTrue($framevisible,'Map is not visible');
+        $this->AboutUsPage->switchIFrame();
     }
 }
 

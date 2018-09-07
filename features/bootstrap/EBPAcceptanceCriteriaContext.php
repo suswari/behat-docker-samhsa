@@ -114,37 +114,33 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
     }
 
     /**
-     * @Then /^From the EBP filter section the user sees the following filters and default selection$/
+     * @Then /^From the EBP filter section the user sees the filters (?P<filter>(?:[^"]|\\")*) and default selection (?P<selection>(?:[^"]|\\")*)$/
      */
-    public function VerifyFilterLabelAndDefaultSelection(TableNode $table)
+    public function VerifyFilterLabelAndDefaultSelection($filter,$selection)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            if ($row['filter'] == 'Topic Area') {
+            if ($filter == 'Topic Area') {
                 $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TopicAreaFilterLabel);
                 $defaultValue = $this->EBPResourceCenterPage->getSelectedTextFromDropdown($this->EBPResourceCenterPage->TopicAreaFilterDropdown);
 
-            } elseif ($row['filter'] == 'Populations') {
+            } elseif ($filter == 'Populations') {
                 $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->PopulationFilterLabel);
                 $defaultValue = $this->EBPResourceCenterPage->getSelectedTextFromDropdown($this->EBPResourceCenterPage->PopulationFilterDropdown);
-            } elseif ($row['filter'] == 'Target Audience') {
+            } elseif ($filter == 'Target Audience') {
                 $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TargetAudienceFilterLabel);
                 $defaultValue = $this->EBPResourceCenterPage->getSelectedTextFromDropdown($this->EBPResourceCenterPage->TargetAudienceFilterDropdown);
-            } elseif ($row['filter'] == 'Resource Type') {
+            } elseif ($filter == 'Resource Type') {
                 $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->ResourceTypeFilterLabel);
                 $defaultValue = $this->EBPResourceCenterPage->getSelectedTextFromDropdown($this->EBPResourceCenterPage->ResourceTypeFilterDropdown);
-            }elseif ($row['filter'] == 'Sort by') {
+            }elseif ($filter == 'Sort by') {
                 $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->SortByFilterLabel);
                 $defaultValue = $this->EBPResourceCenterPage->getSelectedTextFromDropdown($this->EBPResourceCenterPage->SortByFilterDropdown);
-            }elseif ($row['filter'] == 'Items per page') {
+            }elseif ($filter == 'Items per page') {
                 $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->ItemsPerPageFilterLabel);
                 $defaultValue = $this->EBPResourceCenterPage->getSelectedTextFromDropdown($this->EBPResourceCenterPage->ItemsPerPageFilterDropdown);
             }
 
-            $this->assertEquals($visible, true, 'The EBP filter label ' . $row['filter'] . ' is not visible');
-            $this->assertEquals($defaultValue, $row['default selection'], 'The EBP filter label ' . $row['filter'] . ' is not visible');
-
-        }
+            $this->assertEquals($visible, true, 'The EBP filter label ' . $filter . ' is not visible');
+            $this->assertEquals($defaultValue, $selection, 'The EBP filter label ' . $filter . ' is not visible');
     }
 
     /**
@@ -178,54 +174,42 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
     }
 
     /**
-     * @Given /^The user always sees the following resource tags$/
+     * @Given /^The user always sees the resource tags "(?P<t1>(?:[^"]|\\")*)" "(?P<t2>(?:[^"]|\\")*)" "(?P<t3>(?:[^"]|\\")*)" "(?P<t4>(?:[^"]|\\")*)"$/
      */
-    public function EBPResourcesRequiredTags(TableNode $table)
+    public function EBPResourcesRequiredTags($t1,$t2,$t3,$t4)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            if ($row['tag'] == 'Topic Area') {
-                $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TopicAreaResourceTag);
-            } elseif ($row['tag'] == 'Populations') {
-                $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->PopulationResourceTag);
-            } elseif ($row['tag'] == 'Target Audience') {
-                $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TargetAudienceResourceTag);
-            } elseif ($row['tag'] == 'Resource Type') {
-                $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->ResourceTypeResourceTag);
-            }
-        }
-        $this->assertEquals($visible, true, 'The Resource tag ' . $row['tag'] . ' is not visible');
+        $t1visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TopicAreaResourceTag);
+        $t2visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->PopulationResourceTag);
+        $t3visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TargetAudienceResourceTag);
+        $t4visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->ResourceTypeResourceTag);
+        $this->assertEquals($t1visible, true, 'The Resource tag ' . $t1 . ' is not visible');
+        $this->assertEquals($t2visible, true, 'The Resource tag ' . $t2 . ' is not visible');
+        $this->assertEquals($t3visible, true, 'The Resource tag ' . $t3 . ' is not visible');
+        $this->assertEquals($t4visible, true, 'The Resource tag ' . $t4 . ' is not visible');
     }
 
     /**
-     * @Given /^The user sees the following resource tags only when their value is not blank$/
+     * @Given /^The user sees the "(?P<t1>(?:[^"]|\\")*)" "(?P<t2>(?:[^"]|\\")*)" resource tags only when their value is not blank$/
      */
-    public function EBPResourcesDynamicTags(TableNode $table)
+    public function EBPResourcesDynamicTags($t1,$t2)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            if ($row['tag'] == 'Substances') {
-                $visible = $this->EBPResourceCenterPage->GetSubstanceResourceTags();
-                $notNULLValue = $this->EBPResourceCenterPage->GetSubstanceResourceTagsValue();
-
-            } elseif ($row['tag'] == 'Conditions') {
-                $visible = $this->EBPResourceCenterPage->GetConditionsResourceTags();
-                $notNULLValue = $this->EBPResourceCenterPage->GetConditionsResourceTagsValue();
-            }
-        }
-        $this->assertEquals(count($visible), count($notNULLValue), 'The Resource tag ' . $row['tag'] . ' is not visible');
+        $t1visible = $this->EBPResourceCenterPage->GetSubstanceResourceTags();
+        $t1notNULLValue = $this->EBPResourceCenterPage->GetSubstanceResourceTagsValue();
+        $t2visible = $this->EBPResourceCenterPage->GetConditionsResourceTags();
+        $t2notNULLValue = $this->EBPResourceCenterPage->GetConditionsResourceTagsValue();
+        $this->assertEquals($t1visible, true, 'The Resource tag ' . $t1 . ' is not visible');
+        $this->assertEquals($t2visible, true, 'The Resource tag ' . $t2 . ' is not visible');
+        $this->assertNotEmpty($t1notNULLValue,'Substance resource tag value is empty');
+        $this->assertNotEmpty($t2notNULLValue, 'Conditions resource tag value is empty');
     }
 
     /**
-     * @Given /^In the Technical Assistance section on the right rail of the EBP page there are following weblinks$/
+     * @Given /^In the Technical Assistance section on the right rail of the EBP page there are weblinks "(?P<linkName>(?:[^"]|\\")*)"$/
      */
-    public function TechnicalAssistanceWeblinks(TableNode $table)
+    public function TechnicalAssistanceWeblinks($linkName)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TechnicalAssitanceLinks($row['links']));
-        }
-        $this->assertEquals($visible, true, 'The technical assistance link ' . $row['links'] . ' is not visible');
+        $visible = $this->EBPResourceCenterPage->isVisible($this->EBPResourceCenterPage->TechnicalAssitanceLinks($linkName));
+        $this->assertEquals($visible, true, 'The technical assistance link ' . $linkName . ' is not visible');
     }
 
     /**
@@ -275,19 +259,15 @@ class EBPAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase implements
     }
 
     /**
-     * @Given /^The user sees the Sidebar navigation with the following links$/
+     * @Given /^The user sees the Sidebar navigation link "(?P<link>(?:[^"]|\\")*)"$/
      */
-    public function SidebarNavigationLinksVisible(TableNode $table)
+    public function SidebarNavigationLinksVisible($link)
     {
-        $hash = $table->getHash();
         $sidebarvisible = $this->EBPAboutPage->isVisible($this->EBPAboutPage->LetPaneNavigationBlock);
-
-        foreach ($hash as $row) {
-            $linkvisible = $this->EBPAboutPage->isVisible($this->EBPAboutPage->LetPaneNavigationBlock.'//a[text()="'.$row['link'].'"]');
-
-        }
+        $linkvisible = $this->EBPAboutPage->isVisible($this->EBPAboutPage->LetPaneNavigationBlock.'//a[text()="'.$link.'"]');
+        $this->EBPAboutPage->waitForTime(1000);
         $this->assertEquals($sidebarvisible, true, 'sidebar block is not visible');
-        $this->assertEquals($linkvisible, true, 'the link '.$row['link'].' is not visible');
+        $this->assertEquals($linkvisible, true, 'the link '.$link.' is not visible');
     }
     /**
      * @Given /^The user sees the EBP about page text$/

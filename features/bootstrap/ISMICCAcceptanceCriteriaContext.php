@@ -28,24 +28,22 @@ class ISMICCAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase impleme
 
 
     /**
-     * @When /^The user searches for Programs & Campaigns page using the following terms$/
+     * @When /^The user searches for Programs & Campaigns page using Keyword:"(?P<f1>(?:[^"]|\\")*)" Type:"(?P<f2>(?:[^"]|\\")*)" Topic:"(?P<f3>(?:[^"]|\\")*)"$/
      */
-    public function searchProgramsAndCampaigns(TableNode $table)
+    public function searchProgramsAndCampaigns($f1,$f2,$f3)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            if($row['Keyword']){
-                $this->ProgramsAndCampaignsPage->type($this->ProgramsAndCampaignsPage->SearchByKeywordTextField,$row['Keyword']);
+            if($f1){
+                $this->ProgramsAndCampaignsPage->type($this->ProgramsAndCampaignsPage->SearchByKeywordTextField,$f1);
             }
-            if($row['Type']){
-                $this->ProgramsAndCampaignsPage->selectDropdownOptionByText($this->ProgramsAndCampaignsPage->SearchByTypeDropdown,$row['Type']);
+            if($f2){
+                $this->ProgramsAndCampaignsPage->selectDropdownOptionByText($this->ProgramsAndCampaignsPage->SearchByTypeDropdown,$f2);
             }
-            if($row['Topic']){
-                $this->ProgramsAndCampaignsPage->selectDropdownOptionByText($this->ProgramsAndCampaignsPage->SearchByTopicDropdown,$row['Topic']);
+            if($f3){
+                $this->ProgramsAndCampaignsPage->selectDropdownOptionByText($this->ProgramsAndCampaignsPage->SearchByTopicDropdown,$f3);
             }
             $this->ProgramsAndCampaignsPage->click($this->ProgramsAndCampaignsPage->SearchFindButton);
             $this->ProgramsAndCampaignsPage->waitForTime(2000);
-        }
+
     }
 
     /**
@@ -69,29 +67,24 @@ class ISMICCAcceptanceCriteriaContext extends PHPUnit_Framework_TestCase impleme
     }
 
     /**
-     * @Given /^The user sees for the following subheadings on ISMICC page there are respective links$/
+     * @Given /^The user sees for the subheading "(?P<heading>(?:[^"]|\\")*)" on ISMICC page there is a link "(?P<link>(?:[^"]|\\")*)"$/
      */
-    public function VerifySubHeadingsWithSpecificLinksInBodyPresent(TableNode $table)
+    public function VerifySubHeadingsWithSpecificLinksInBodyPresent($heading,$link)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-
-            if($row['links'] == 'Get the report'){
+            if($link == 'Get the report'){
                 $visible = $this->CommonPageElements->isVisible('.//a[text()="Get the report (PDF | 4.37 MB)"]/../preceding-sibling::h2[1]');
                 $text = $this->CommonPageElements->getFieldText('.//a[text()="Get the report (PDF | 4.37 MB)"]/../preceding-sibling::h2[1]');
             }else{
-                $visible = $this->CommonPageElements->isVisible('.//a[text()="'.$row['links'].'"]/../preceding-sibling::h2[1]');
-                $text = $this->CommonPageElements->getFieldText('.//a[text()="'.$row['links'].'"]/../preceding-sibling::h2[1]');
+                $visible = $this->CommonPageElements->isVisible('.//a[text()="'.$link.'"]/../preceding-sibling::h2[1]');
+                $text = $this->CommonPageElements->getFieldText('.//a[text()="'.$link.'"]/../preceding-sibling::h2[1]');
 
             }
 
-            $this->assertEquals($visible,true,'The link for '.$row['links'].' is not visible');
+            $this->assertEquals($visible,true,'The link for '.$link.' is not visible');
 
-            if($text !== $row['subheadings']){
-                $this->assertTrue(false , 'The subheading :'.$row['subheadings'].' has no link :'.$row['links']);
+            if($text !== $heading){
+                $this->assertTrue(false , 'The subheading :'.$heading.' has no link :'.$row['links']);
             }
-        }
-
     }
 
     /**

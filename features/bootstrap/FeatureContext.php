@@ -9,6 +9,7 @@ use Pages\CommonPageElements;
 use Pages\SAMSHAHomePage;
 use Pages\CommonActions;
 
+
 /**
  * Defines application features from the specific context.
  */
@@ -66,7 +67,6 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
         }
              file_put_contents('reports/screenshots/'.$featureFolder.'/'.$fileName , $this->CommonActions->takeScreenShot());
-
     }
 
     /**
@@ -131,6 +131,9 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
             $this->HomePage->openPage('search_results');
         }elseif ($pagehint=='Grant awards by state page') {
             $this->HomePage->openPage('grants-awards-by-state');
+        }elseif ($pagehint=='About us') {
+            $this->HomePage->openPage('about-us');
+            $this->HomePage->waitForTime(1000);
         }
 
     }
@@ -217,20 +220,17 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     }
 
     /**
-     * @Given /^The user sees the following helper blocks$/
+     * @Given /^The user sees the helper "(?P<block>(?:[^"]|\\")*)/
      */
-    public function HelperBlocksVisibility(TableNode $table)
+    public function HelperBlocksVisibility($block)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            $imagevisible = $this->CommonPageElements->isVisible($this->CommonPageElements->HelperBlocksImages( $row['blocks']));
+            $imagevisible = $this->CommonPageElements->isVisible($this->CommonPageElements->HelperBlocksImages( $block));
             $this->assertEquals($imagevisible, true, '');
-            if($row['blocks']!='SAMHSA Behavioral Health Treatment Locator'){
-                $helplinenumber = $this->CommonPageElements->getFieldText($this->CommonPageElements->HelperBlockerPhoneNumberText( $row['blocks']));
+            if($block!='SAMHSA Behavioral Health Treatment Locator'){
+                $helplinenumber = $this->CommonPageElements->getFieldText($this->CommonPageElements->HelperBlockerPhoneNumberText( $block));
                 var_export($helplinenumber);
                 $this->assertNotEquals($helplinenumber, null, '');
             }
-        }
     }
 
     /**
@@ -280,20 +280,18 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     }
 
     /**
-     * @Given /^The "(?P<filterlabel>(?:[^"]|\\")*)" filter has the following options$/
+     * @Given /^The "(?P<filterlabel>(?:[^"]|\\")*)" filter has the options "(?P<option>(?:[^"]|\\")*)"$/
      */
-    public function VerifyOptionsForDropdown($filterlabel,TableNode $table)
+    public function VerifyOptionsForDropdown($filterlabel,$option)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
             try{
-                $optionvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->DropdownOptions($filterlabel).'[(normalize-space(text())="'.$row['Options'].'"]');
+                $optionvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->DropdownOptions($filterlabel).'[(normalize-space(text())="'.$option.'"]');
             }catch (Exception $exception){
-                $optionvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->DropdownOptions($filterlabel).'[text()="'.$row['Options'].'"]');
+                $optionvisible = $this->CommonPageElements->isVisible($this->CommonPageElements->DropdownOptions($filterlabel).'[text()="'.$option.'"]');
             }
-            $this->assertEquals($optionvisible, true, 'could not find the following option:'.$row['Options']);
-        }
+            $this->assertEquals($optionvisible, true, 'could not find the following option:'.$option);
     }
+
 
     /**
      * @Given /^The user selects the filter "(?P<filterlabel>(?:[^"]|\\")*)" as "(?P<optiontext>(?:[^"]|\\")*)"$/
@@ -304,31 +302,37 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
 
     }
     /**
-     * @Given /^The user selects the following set of filter criteria for "(?P<filterlabel>(?:[^"]|\\")*)"$/
+     * @Given /^The user selects the following set of filter criteria for EBP resources "(?P<f1>(?:[^"]|\\")*)" "(?P<f2>(?:[^"]|\\")*)" "(?P<f3>(?:[^"]|\\")*)" "(?P<f4>(?:[^"]|\\")*)"$/
      */
-    public function SelectFromMutilpleDropdownsByText(TableNode $table){
-        $hash = $table->getRows();
-        $header = false;
-        $headerrow = [];
-        $datarow = [];
+    public function SelectFromMutilpleDropdownsByText($f1,$f2,$f3,$f4){
+//        $hash = $table->getRows();
+//        $header = false;
+//        $headerrow = [];
+//        $datarow = [];
+//
+//        foreach ($hash as $row) {
+//
+//            if(!$header){
+//                $headerrow = $row;
+//                $header = true;
+//            }else{
+//                $datarow = $row;
+//            }
+//            if($datarow!=NULL){
+//                for ($i = 0; $i <count($headerrow); $i++) {
+//                    if($datarow[$i]!=NULL) {
+//                        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField($headerrow[$i]), $datarow[$i]);
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Topic Area'), $f1);
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Populations'), $f2);
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Target Audience'), $f3);
+        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField('Resource Type'), $f4);
 
-        foreach ($hash as $row) {
 
-            if(!$header){
-                $headerrow = $row;
-                $header = true;
-            }else{
-                $datarow = $row;
-            }
-            if($datarow!=NULL){
-                for ($i = 0; $i <count($headerrow); $i++) {
-                    if($datarow[$i]!=NULL) {
-                        $this->CommonPageElements->selectDropdownOptionByText($this->CommonPageElements->DropdownField($headerrow[$i]), $datarow[$i]);
-                    }
-                }
-
-            }
-        }
+//                    }
+//                }
+//
+//            }
+//        }
     }
     /**
      * @Given /^(?:The users hits apply button|Perform a search)$/
@@ -339,20 +343,15 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
         $this->CommonPageElements->waitForTime(3000);
 
     }
-
-    /**
-     * @Given /^The user sees the following subheadings$/
-     */
-    public function VerifySubHeadingsPresent(TableNode $table)
-    {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            $visible = $this->CommonPageElements->isVisible('.//h2[normalize-space(text())="'.$row['subheadings'].'"]');
-            $this->assertEquals($visible, true, 'could not find the following subheading:'.$row['subheadings']);
-
-        }
-
-    }
+//
+//    /**
+//     * @Given /^The user sees the subheading "(?P<subheading>(?:[^"]|\\")*)"$/
+//     */
+//    public function VerifySubHeadingsPresent($subheading)
+//    {
+//            $visible = $this->CommonPageElements->isVisible('.//h2[normalize-space(text())="'.$subheading.'"]');
+//            $this->assertEquals($visible, true, 'could not find the following subheading:'.$subheading);
+//    }
     /**
      * @Given /^The user sees the subheading "(?P<titleText>(?:[^"]|\\")*)"$/
      */
@@ -384,16 +383,12 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     }
 
     /**
-     * @Given /^The user sees following social media icons in the header$/
+     * @Given /^The user sees Social Media Icon "(?P<icon>(?:[^"]|\\")*)" in the header$/
      */
-    public function HeaderSocialMediaIconsVisible(TableNode $table)
+    public function HeaderSocialMediaIconsVisible($icon)
     {
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            $visible = $this->CommonPageElements->isVisible($this->CommonPageElements->SocialMediaIcons($row['Social Media Icons']));
-            $this->assertEquals($visible, true, 'could not find social media icon :'.$row['Social Media Icons']);
-
-        }
+            $visible = $this->CommonPageElements->isVisible($this->CommonPageElements->SocialMediaIcons($icon));
+            $this->assertEquals($visible, true, 'could not find social media icon :'.$icon);
     }
 
     /**
@@ -422,24 +417,40 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
     public function CheckFor200()
     {
         $url =  $this->CommonActions->getCurrentUrl();
-        $handle = curl_init($url);
-        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-        $response = curl_exec($handle);
-        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        if($httpCode !== 200) {
-            $this->assertTrue(false,'the page '.$url.' returned with '.$httpCode);
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER         => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_ENCODING       => "",
+            CURLOPT_AUTOREFERER    => true,
+            CURLOPT_CONNECTTIMEOUT => 120,
+            CURLOPT_TIMEOUT        => 120,
+            CURLOPT_MAXREDIRS      => 10,
+        );
+        curl_setopt ($ch, CURLOPT_CAINFO, dirname(__FILE__)."/cacert.pem");
+        curl_setopt_array( $ch, $options );
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if ( $httpCode != 200 ){
+            $this->assertTrue(false,"Return code is {$httpCode} \n"
+                .curl_error($ch));
         }
+        curl_close($ch);
+
     }
 
 
     /**
-     * @Given /^A user access the following "(?P<uri>(?:[^"]|\\")*)"$/
+     * @Given /^A user access the URI "(?P<uri>(?:[^"]|\\")*)"$/
      */
     public function AccessTheURI($uri)
     {
-                $this->HomePage->openPage($uri);
+       $this->HomePage->openPage($uri);
+       $this->HomePage->waitForTime(1500);
     }
-
 
 
 

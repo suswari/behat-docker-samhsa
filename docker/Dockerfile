@@ -17,6 +17,8 @@ RUN apk add --no-cache \
     php7-xmlwriter \
     php7-tokenizer \
     curl \
+    ca-certificates && \
+    update-ca-certificates \
     && rm -fr /var/cache/apk/* \
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer \
     --install-dir=/usr/bin --version=1.0.0 \
