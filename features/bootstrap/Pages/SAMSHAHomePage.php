@@ -38,11 +38,23 @@ class SAMSHAHomePage extends CommonActions {
     public function treatmentMenuOptionsPhoneNumbers(){
         return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li[2]";
     }
+    public function treatmentMenuOptionsLinks($link){
+        return ".//div[@qtip]//*[starts-with(@id,'megamenu')]//a[text()='".$link."']";
+    }
     public function grantMenuOptions($option){
         return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li/*[text()='".$option."']";
     }
+    public function grantMenuOptionsImage(){
+        return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li//img[@alt='Grants.gov logo graphic']";
+    }
     public function programsAndCampaignsMenuOptions($option){
         return ".//div[@qtip]//div[@class='mega-header']/a[text()='".$option."']";
+    }
+    public function programsAndCampaignsMenuOptionsImage(){
+        return ".//div[@qtip]//div[contains(@class,'megamenu-img')]//img";
+    }
+    public function programsAndCampaignsMenuOptionsOtherLinks($link){
+        return ".//div[@qtip]//div//a[text()='".$link."']";
     }
     public function aboutUsMenuOptions($option){
         return ".//div[@qtip]//ul[starts-with(@id,'megamenu')]/li/*[text()='".$option."']";

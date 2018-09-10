@@ -97,6 +97,11 @@ class SAMHSAHomeContext extends PHPUnit_Framework_TestCase implements \Behat\Beh
                 $this->assertContains('TTY: 1-800-846-8517',$text,'phone number for '.$option.' is not seen');
             }
         }
+        $links = array('Treatment Locators','Behavioral Health Treatment Services Locators','Buprenorphine Physician & Treatment Program Locator','Opioid Treatment Program Directory','View All Helplines and Treatment Locators');
+        foreach($links as $option){
+            $linkvisible = $this->HomePage->isVisible($this->HomePage->treatmentMenuOptionsLinks($option));
+            $this->assertTrue($linkvisible,'Link - '.$option.' is not visible');
+        }
 
     }
     /**
@@ -105,12 +110,14 @@ class SAMHSAHomeContext extends PHPUnit_Framework_TestCase implements \Behat\Beh
      */
     public function GrantMenuOptionsVisible()
     {
-        $categories = array('Fiscal Year 2018 Grant Announcements','Applying for a New SAMHSA Grant','Grant Review Process','Continuation Grants','Grants Management','GPRA Measurement Tools','Contact Grants','More Grants Information');
+        $categories = array('Fiscal Year 2018 Grant Announcements','Applying for a New SAMHSA Grant','Grant Review Process','Continuation Grants','Grants Management','GPRA Measurement Tools','Contact Grants','More Grants Information',
+                            'Register','Search','Apply','Grants.gov');
         foreach($categories as $option){
             $optionVisible = $this->HomePage->isVisible($this->HomePage->grantMenuOptions($option));
             $this->assertTrue($optionVisible,'Grant category: '.$option.' is not seen');
         }
-//        $this->HomePage->click($this->HomePage->grantMenuOptions($option));
+        $imgVisible = $this->HomePage->isVisible($this->HomePage->grantMenuOptionsImage());
+        $this->assertTrue($imgVisible,'Grant.gov image is not seen');
     }
     /**
      * @Given /^Category for Programs & Campaign, "(?P<option>(?:[^"]|\\")*)" is seen$/
@@ -128,6 +135,13 @@ class SAMHSAHomeContext extends PHPUnit_Framework_TestCase implements \Behat\Beh
                 $this->assertTrue($optionVisible,'Programs & Campaign category: '.$option.' is not seen');
             }
         }
+        $links = array('Recovery Month','View All Programs & Campaigns');
+        foreach($links as $option) {
+            $linksVisible = $this->HomePage->isVisible($this->HomePage->programsAndCampaignsMenuOptionsOtherLinks($option));
+            $this->assertTrue($linksVisible, 'Programs & Campaign link: ' . $option . ' is not seen');
+        }
+        $imgVisible = $this->HomePage->isVisible($this->HomePage->programsAndCampaignsMenuOptionsImage());
+        $this->assertTrue($imgVisible, 'Programs & Campaign image is not seen');
     }
     /**
      * @Given /^Category for About Us, "(?P<option>(?:[^"]|\\")*)" is seen$/
