@@ -149,7 +149,8 @@ class SAMHSAHomeContext extends PHPUnit_Framework_TestCase implements \Behat\Beh
      */
     public function AboutMenuOptionsVisible()
     {
-        $categories = array('Who We Are','Interagency Activities','Advisory Councils','Strategic Initiatives','Budget','Speeches and presentations','Jobs & Internships','Contact Us');
+        $categories = array('Who We Are','Interagency Activities','Advisory Councils','Strategic Initiatives','Budget','Speeches and presentations','Jobs & Internships','Contact Us',
+                            'About the Assistant Secretary for Mental Health and Substance Use','View Dr. Elinore McCance-Katz’s full biography');
         foreach($categories as $option){
             $optionVisible = $this->HomePage->isVisible($this->HomePage->aboutUsMenuOptions($option));
             $this->assertTrue($optionVisible,'About Us category: '.$option.' is not seen');
