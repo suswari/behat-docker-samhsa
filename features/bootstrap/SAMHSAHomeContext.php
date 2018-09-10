@@ -78,52 +78,68 @@ class SAMHSAHomeContext extends PHPUnit_Framework_TestCase implements \Behat\Beh
     }
     /**
      * @Given /^Treatment help line for "(?P<option>(?:[^"]|\\")*)" is seen$/
+     * @Given /^All valid Treatment helpline images and phone numbers are seen$/
      */
-    public function TreatmentMenuOptionsVisible($option)
+    public function TreatmentMenuOptionsVisible()
     {
-//        $this->HomePage->waitForTime(8000);
-        $imgvisible = $this->HomePage->isVisible($this->HomePage->treatmentMenuOptionsImages($option));
-       $this->assertTrue($imgvisible);
-       if($option=='National Suicide Prevention Lifeline'){
-           $text = $this->HomePage->getText($this->HomePage->treatmentMenuOptionsPhoneNumbers().'[contains(text(),"1-800-273-8255 (TALK)")]');
-           $this->assertContains('TTY: 1-800-799-4889',$text);
-       } elseif($option=='National Helpline'){
-            $text = $this->HomePage->getText($this->HomePage->treatmentMenuOptionsPhoneNumbers().'[contains(text(),"1-800-662-4357 (HELP)")]');
-            $this->assertContains('TTY: 1-800-487-4889',$text);
-       } elseif($option=='Disaster Distress Helpline'){
-           $text = $this->HomePage->getText($this->HomePage->treatmentMenuOptionsPhoneNumbers().'[contains(text(),"1-800-985-5990")]');
-           $this->assertContains('TTY: 1-800-846-8517',$text);
-       }
-    }
-    /**
-     * @Given /^Grant option "(?P<option>(?:[^"]|\\")*)" is seen$/
-     */
-    public function GrantMenuOptionsVisible($option)
-    {
-        $optionVisible = $this->HomePage->isVisible($this->HomePage->grantMenuOptions($option));
-        $this->assertTrue($optionVisible);
-    }
-    /**
-     * @Given /^Programs & Campaign option "(?P<option>(?:[^"]|\\")*)" is seen$/
-     */
-    public function ProgramsAndCampaignMenuOptionsVisible($option)
-    {
-        if($option=='Popular Programs, Campaigns, & Initiatives'){
-            $optionVisible = $this->HomePage->isVisible('.//div[@qtip]//div[@class="mega-header"]/a[contains(text(),"Popular Programs, Campaigns,")]');
-            $this->assertTrue($optionVisible);
-        }else{
-            $optionVisible = $this->HomePage->isVisible($this->HomePage->programsAndCampaignsMenuOptions($option));
-            $this->assertTrue($optionVisible);
+        $categories = array('National Suicide Prevention Lifeline','National Helpline','Disaster Distress Helpline');
+        foreach($categories as $option){
+            $imgvisible = $this->HomePage->isVisible($this->HomePage->treatmentMenuOptionsImages($option));
+            $this->assertTrue($imgvisible,'Image for '.$option.' is not visible');
+            if($option=='National Suicide Prevention Lifeline'){
+                $text = $this->HomePage->getFieldText($this->HomePage->treatmentMenuOptionsPhoneNumbers().'[contains(text(),"1-800-273-8255 (TALK)")]');
+                $this->assertContains('TTY: 1-800-799-4889',$text,'phone number for '.$option.' is not seen');
+            } elseif($option=='National Helpline'){
+                $text = $this->HomePage->getFieldText($this->HomePage->treatmentMenuOptionsPhoneNumbers().'[contains(text(),"1-800-662-4357 (HELP)")]');
+                $this->assertContains('TTY: 1-800-487-4889',$text,'phone number for '.$option.' is not seen');
+            } elseif($option=='Disaster Distress Helpline'){
+                $text = $this->HomePage->getFieldText($this->HomePage->treatmentMenuOptionsPhoneNumbers().'[contains(text(),"1-800-985-5990")]');
+                $this->assertContains('TTY: 1-800-846-8517',$text,'phone number for '.$option.' is not seen');
+            }
         }
 
     }
     /**
-     * @Given /^About Us option "(?P<option>(?:[^"]|\\")*)" is seen$/
+     * @Given /^Category for Grant, "(?P<option>(?:[^"]|\\")*)" is seen$/
+     *  @Given /^All valid Grant categories are seen$/
      */
-    public function AboutMenuOptionsVisible($option)
+    public function GrantMenuOptionsVisible()
     {
-        $optionVisible = $this->HomePage->isVisible($this->HomePage->aboutUsMenuOptions($option));
-        $this->assertTrue($optionVisible);
+        $categories = array('Fiscal Year 2018 Grant Announcements','Applying for a New SAMHSA Grant','Grant Review Process','Continuation Grants','Grants Management','GPRA Measurement Tools','Contact Grants','More Grants Information');
+        foreach($categories as $option){
+            $optionVisible = $this->HomePage->isVisible($this->HomePage->grantMenuOptions($option));
+            $this->assertTrue($optionVisible,'Grant category: '.$option.' is not seen');
+        }
+//        $this->HomePage->click($this->HomePage->grantMenuOptions($option));
+    }
+    /**
+     * @Given /^Category for Programs & Campaign, "(?P<option>(?:[^"]|\\")*)" is seen$/
+     * @Given /^All valid Programs & Campaign categories are seen$/
+     */
+    public function ProgramsAndCampaignMenuOptionsVisible()
+    {
+        $categories = array('Featured Campaign','Popular Programs, Campaigns, & Initiatives','Popular Technical Assistance & Resource Centers');
+        foreach($categories as $option){
+            if($option=='Popular Programs, Campaigns, & Initiatives'){
+                $optionVisible = $this->HomePage->isVisible('.//div[@qtip]//div[@class="mega-header"]/a[contains(text(),"Popular Programs, Campaigns,")]');
+                $this->assertTrue($optionVisible,'Programs & Campaign category: '.$option.' is not seen');
+            }else{
+                $optionVisible = $this->HomePage->isVisible($this->HomePage->programsAndCampaignsMenuOptions($option));
+                $this->assertTrue($optionVisible,'Programs & Campaign category: '.$option.' is not seen');
+            }
+        }
+    }
+    /**
+     * @Given /^Category for About Us, "(?P<option>(?:[^"]|\\")*)" is seen$/
+     *  @Given /^All valid About Us categories are seen$/
+     */
+    public function AboutMenuOptionsVisible()
+    {
+        $categories = array('Who We Are','Interagency Activities','Advisory Councils','Strategic Initiatives','Budget','Speeches and presentations','Jobs & Internships','Contact Us');
+        foreach($categories as $option){
+            $optionVisible = $this->HomePage->isVisible($this->HomePage->aboutUsMenuOptions($option));
+            $this->assertTrue($optionVisible,'About Us category: '.$option.' is not seen');
+        }
     }
 
 }
